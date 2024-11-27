@@ -105,8 +105,10 @@ AppServer
 Continue as root
 - # pip3 install gunicorn
 - # systemctl enable gunicorn
+- # systemctl start gunicorn
 - # systemctl status gunicorn
    .... should see workers
+- # systemctl enable rananeeti_tx_cache
 - # systemctl start rananeeti_tx_cache
 - # systemctl status rananeeti_tx_cache
    .... should see "Started rananeeti_tx_cache.service - RANANEETI Caching layer."
@@ -115,6 +117,9 @@ End of Deployment
 ------------------
 From your workstation open in Firefox your EC2 host address and start making "reservations", while ticking the checkbox to test Database failures.
 
+Now it's a good time to play around with the cafe Demo website and to review its code. Note that "Rananeeti" Data Platform is the only interface to all sort of data stores, relational and not. It also has its own connection pool with transaction processing logic smart enough to survive even full database outages. That is the core concept of Maximum Data Availability Architecture.
+
+Thank you for visiting! 
 
 
 
