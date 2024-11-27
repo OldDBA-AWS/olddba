@@ -37,9 +37,21 @@ You are responsible for the cost of the AWS services used while running this Gui
 <img src="assets/cost_nonrepresentative_example.jpeg" alt="One of possible Cafe App price points" width=200px> \
 _Your cost may and will vary_.
 
-## Prerequisites
-EC2 Image Builder will use the default Virtual Private Cloud (VPC) and default Security Group in the region where you are deploying the container build process. To ensure a successful container creation, you need to verify that the Security Group rules do not restrict the AWS Systems Manager Agent (SSM Agent) from connecting to the instance.  
-If you are using the Default VPC and Default Security Group without any modifications, there should be no issues with the SSM Agent connection. However, if you have altered the inbound or outbound Security Group rules, it may prevent the SSM Agent from connecting, causing the container creation task to fail.
+## Background
+You can read about *Application-level Resiliency* on 
+[my LinkedIn page](https://www.linkedin.com/in/denys-dobrelya/):
+- [Working Demo Application walkthrough](https://www.linkedin.com/posts/activity-7222454561465073664-metD), full resolution video is available upon request
+- [Reference Architecture](#ArchDiag) diagram, describing all moving parts
+- Main ideas behind "*Maximum Data Availability Architecture*" (MD2A):
+   - [Building Resilient Applications: Leveraging Modern Databases for High Availability[(https://www.linkedin.com/pulse/building-resilient-applications-leveraging-modern-high-denys-dobrelya-pcpqf)
+   - [Building for the Future: Why Your Applications Need a Data Platform Foundation](https://www.linkedin.com/pulse/building-future-why-your-applications-need-data-denys-dobrelya-uzhaf)
+   - [Business Summary: Deploying Aurora as a Global Cross-Region Database](https://www.linkedin.com/pulse/business-summary-deploying-aurora-global-cross-region-denys-dobrelya-o4wpf)
+   - [Multi-Region Resilient Application Recipe](https://www.linkedin.com/pulse/multi-region-resilient-application-recipe-denys-dobrelya-cwjrf)
+   - [Building a Cloud Fortress[(https://www.linkedin.com/pulse/building-cloud-fortress-denys-dobrelya-b30wf)
+- [Fully functional Cafe Demo website](https://cafe.olddba.people.aws.dev) is still available,
+but we were asked to restrict public access. If you want to try it - let me know! 
+(_It looks and works exactly like in my video above._)
+
 ### Operating System
 These deployment instructions are optimized to best work on a Mac or Linux environment. Deployment in Windows may require additional steps for setting up required libraries and CLI.
 Using a standard [AWS Cloud9](https://aws.amazon.com/pm/cloud9/) environment will have all the AWS requirements installed.
