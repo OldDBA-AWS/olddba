@@ -20,7 +20,7 @@ Parameters:
     # You may prepare fully configured App Server, make AMI and use it here.
     Description: "Amazon Linux latest AMI image to use for WebApp Host"
     Type: String
-    Default: "ami-0453ec754f44f9a4a" # us-east-1
+    Default: "ami-0453ec754f44f9a4a" # us-east-1. I don't like long maps ...
     # Default: "ami-0146fc9ad419e2cfd" # ap-southeast-2
   CafeKey:
     Description: "Your Key for SSH. You *must* pre-create it!"
@@ -172,11 +172,29 @@ Resources:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
           SubnetId: !Ref DBSubnet1
+      UserData:
+        # This will work properly _only_ at first clean deployment of EC2!
+        # Check /var/log/cloud-init* and journalctl -b
+        # postgresql.org/docs/current/libpq-envars.html
+        Fn::Base64: !Sub |
+          #!/usr/bin/bash 
+          yum install -y lynx postgresql15 git
+          mkdir -p /home/ec2-user/md2a/rananeeti
+          git clone https://github.com/OldDBA-AWS/olddba \
+              /home/ec2-user/md2a/rananeeti/olddba
+          chown -R ec2-user:ec2-user /home/ec2-user/md2a
+          touch /tmp/env
+          echo "export PGHOST=${CafeDemoDB.Endpoint.Address}" >> /tmp/env
+          echo "export PGPORT=${CafeDemoDB.Endpoint.Port}" >> /tmp/env
+          echo "export PGDATABASE=cafedb" >> /tmp/env
+          echo "export PGUSER=postgres" >> /tmp/env
+          echo "export PGPASSWORD=${DBPassword}" >> /tmp/env
+          cat /tmp/env >> /home/ec2-user/.bashrc
       Tags:
          - Key: "Name"
            Value: !Sub "${PrefxName}CafeDemoWebAppHost"
 # Internet connectivity so you can access Web App on EC2.
-# It's not strictly necessary if you may use Lynx and serial console.
+# It's not strictly necessary if you can use Lynx and serial console.
 # Also, you may deploy EC2 in default VPC and do peering with "DB Core VPC".
   CafeDemoVPCInternetGateway:
     Type: AWS::EC2::InternetGateway
@@ -237,7 +255,7 @@ Outputs:
   SecGroupToAddYourIP:
     Description: "Add your public IP to this security group before connecting to EC2:"
     Value: !GetAtt CafeDemoVPC.DefaultSecurityGroup
-# psql -h cafe-1.cluster-c96ssa46c1n3.ap-southeast-2.rds.amazonaws.com -d cafedb -U postgres
+# psql -h cafe-1.cluster-ckru66eio9ot.us-east-1.rds.amazonaws.com -d cafedb -U postgres
 # Welcome1
 #
 # The End.
