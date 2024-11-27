@@ -30,10 +30,12 @@ The video, detailed explanations and build guide follow.
 <a name="ArchDiag"></a>
 The fully deployed production grade system have structure, similar to this:
 <img src="assets/reference_architecture.png" alt="reference_architecture" width=800px>
+Aurora Global Database and Amazon DynamoDB are powerful tools that can significantly enhance operational excellence by 1/ _replicating data_ across multiple Availability Zones and _Regions_; 2/ maintaining  continuous operations and _minimizing downtime_; 3/ _automating_ many database management tasks, such as backups, patching, and failover; 4/ with its high-performance storage engine, Aurora Global Database delivers low-latency performance, improving application responsiveness and providing _cross-regional availability_ at the same time; 5/ DynamoDB is a _fully managed_ NoSQL database that eliminates the need for database administration; 6/ DynamoDB _Global Tables_ enable low-latency access to data from multiple regions, which is ideal for applications with _global users_ and improves user experience.
 
 ### Cost
-
-You are responsible for the cost of the AWS services used while running this Guidance. As of February 2024 the cost for running this Guidance with the default settings in the us-east-1 region is approximately $875 per month for processing 1000 minutes of videos and 10000 images per month. This is not including the Amazon Kendra free tier that provides free usage of up to 750 hours for the first 30 days. This will allow you to evaluate the solution while in the free tier. Visit the [Amazon Kendra Pricing](https://aws.amazon.com/kendra/pricing) page for more information.
+You are responsible for the cost of the AWS services used while running this Guidance. As of December 2024 the cost for running this Guidance with the default settings in the us-east-1 region is approximately $875 per month.
+<img src="assets/cost_nonrepresentative_example.jpeg" alt="One of possible Cafe App price points" width=400px>
+Your cost may and will vary.
 
 ## Prerequisites
 EC2 Image Builder will use the default Virtual Private Cloud (VPC) and default Security Group in the region where you are deploying the container build process. To ensure a successful container creation, you need to verify that the Security Group rules do not restrict the AWS Systems Manager Agent (SSM Agent) from connecting to the instance.  
