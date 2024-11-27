@@ -190,6 +190,7 @@ Resources:
           echo "export PGUSER=postgres" >> /tmp/env
           echo "export PGPASSWORD=${DBPassword}" >> /tmp/env
           cat /tmp/env >> /home/ec2-user/.bashrc
+          echo "['${CafeDemoDB.Endpoint.Address}','${DBPassword}']" >> /etc/md2a.db
       Tags:
          - Key: "Name"
            Value: !Sub "${PrefxName}CafeDemoWebAppHost"
