@@ -33,9 +33,9 @@ The fully deployed production grade system have structure, similar to this:
 Aurora Global Database and Amazon DynamoDB are powerful tools that can significantly enhance operational excellence by 1/ _replicating data_ across multiple Availability Zones and _Regions_; 2/ maintaining  continuous operations and _minimizing downtime_; 3/ _automating_ many database management tasks, such as backups, patching, and failover; 4/ with its high-performance storage engine, Aurora Global Database delivers low-latency performance, improving application responsiveness and providing _cross-regional availability_ at the same time; 5/ DynamoDB is a _fully managed_ NoSQL database that eliminates the need for database administration; 6/ DynamoDB _Global Tables_ enable low-latency access to data from multiple regions, which is ideal for applications with _global users_ and improves user experience.
 
 ### Cost
-You are responsible for the cost of the AWS services used while running this Guidance. As of December 2024 the cost for running this Guidance with the default settings in the us-east-1 region is approximately $875 per month.
-<img src="assets/cost_nonrepresentative_example.jpeg" alt="One of possible Cafe App price points" width=400px>
-Your cost may and will vary.
+You are responsible for the cost of the AWS services used while running this Guidance. As of December 2024 _my cost_ of running this Guidance in the _us-east-1_ region is approximately _$55_ per month. \
+<img src="assets/cost_nonrepresentative_example.jpeg" alt="One of possible Cafe App price points" width=200px> \
+_Your cost may and will vary_.
 
 ## Prerequisites
 EC2 Image Builder will use the default Virtual Private Cloud (VPC) and default Security Group in the region where you are deploying the container build process. To ensure a successful container creation, you need to verify that the Security Group rules do not restrict the AWS Systems Manager Agent (SSM Agent) from connecting to the instance.  
