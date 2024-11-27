@@ -50,6 +50,19 @@ Deploy Web and App Infrastructure
 ----------------------------------
 As "ec2-user" install necessary Python modules:
 - $ pip3 install boto3 oauthlib Flask Flask-SQLAlchemy Flask-OAuthlib Gunicorn
+Configure AWS CLI credentials.
+The recommended practice is to use IAM Identity Center authentication.
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html
+- $ cd ~
+- $ aws configure
+AWS Access Key ID [None]: Key-from-your-IAM-User
+AWS Secret Access Key [None]: Secret-from-your-IAM-User
+Default region name [None]: us-east-1
+Default output format [None]: text
+$ aws s3 ls
+2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
+2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
+
 
 WebServer
 ---------
