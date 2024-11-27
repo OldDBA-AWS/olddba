@@ -49,7 +49,7 @@ Prepare the account
 Deploy Web and App Infrastructure
 ----------------------------------
 As "ec2-user" install necessary Python modules:
-- $ pip3 install boto3 oauthlib Flask Flask-SQLAlchemy Flask-OAuthlib Gunicorn
+- $ pip3 install boto3 oauthlib Flask Flask-SQLAlchemy Flask-OAuthlib Gunicorn psycopg2-binary
 Configure AWS CLI credentials.
 The recommended practice is to use IAM Identity Center authentication.
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html
@@ -63,10 +63,33 @@ $ aws s3 ls
 2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
 2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
 
+DBServer
+---------
+As "ec2-user", connect to Aurora DB from the App Server.
+- psql
+  cafedb=> \c
+psql (15.8, server 15.4)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+You are now connected to database "cafedb" as user "postgres".
+  cafedb=>  create user cafeapp password 'Welcome1';
+  cafedb=>  grant all on database cafedb to cafeapp; 
+  cafedb=> \c cafedb cafeapp
+psql (15.8, server 15.4)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+You are now connected to database "cafedb" as user "cafeapp".
+  cafedb=>  create schema cafe authorization cafeapp;
+  cafedb=>  create table cafe.ordersraw(
+ ordrid SERIAL PRIMARY KEY,
+ ordrdgst char(20) UNIQUE NOT NULL, -- blake2b hash digest value
+ ordrname varchar(40) NOT NULL, -- who ordered
+ ordrppl integer NOT NULL, -- how many people to attend
+ ordrdttm timestamp(0) NOT NULL, -- Date / Time no TZ no Seconds
+ ordrtxt varchar(200) -- Optional notes
+);
 
 WebServer
 ---------
-- Become root on your EC2 App Server.
+Become root on your EC2 App Server.
 - # cd /
 - # tar xzvpf /home/ec2-user/md2a/rananeeti/olddba/assets/v1.1.tgz # Please preserve permissions with "p"!
 - # cd ~
@@ -79,11 +102,22 @@ You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting u
 
 AppServer
 ----------
-- Continue as root
+Continue as root
 - # pip3 install gunicorn
 - # systemctl enable gunicorn
 - # systemctl status gunicorn
    .... should see workers
+- # systemctl start rananeeti_tx_cache
+- # systemctl status rananeeti_tx_cache
+   .... should see "Started rananeeti_tx_cache.service - RANANEETI Caching layer."
+
+End of Deployment
+------------------
+From your workstation open in Firefox your EC2 host address and start making "reservations", while ticking the checkbox to test Database failures.
+
+
+
+
 
 
 
