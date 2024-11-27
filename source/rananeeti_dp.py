@@ -10,15 +10,17 @@ from sqlalchemy.exc import SQLAlchemyError, InvalidRequestError, \
 import time
 import random
 import json
+import os
 import boto3
 
-PGHOST="cafe-1.cluster-c8tdsentijjf.us-west-1.rds.amazonaws.com"
+PGHOST=os.environ['PGHOST']
 PGDATABASE="cafedb"
 PGUSER="cafeapp"
 PGSCHEMA="cafe"
 # TODO: Replace with IAM / Password manager
-PGPASS=$PGPASSWORD
+PGPASS=os.environ['PGPASSWORD']
 SQLALCHEMY_DATABASE_URI=f"postgresql://{PGUSER}:{PGPASS}@{PGHOST}/{PGDATABASE}"
+# print(f"... DB Conn: {SQLALCHEMY_DATABASE_URI}")
 DDBGBLTBL = 'cafeordrsglbl'
 orddir = "/var/www/html/orders"
 ddb = boto3.client('dynamodb')
