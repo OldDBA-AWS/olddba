@@ -17,7 +17,7 @@
 9. [Authors](#authors)
 
 ## Overview
-MD2A uses Aurora Global and Dynamo databases, Intelligent-Tiering S3 storage, global traffic management, application firewall and balancing infrastructure. These services, via their own programming APIs and SDKs, get engaged as necessary by our new “Rananeeti” Data Platform which can deliver the "Full Stack Resiliency", working with Application in its entirety, covering User Interface, Services and Database layers, as presented in the Reference Architecture diagram.
+MD2A uses Aurora Global and Dynamo databases, Intelligent-Tiering S3 storage, global traffic management, application firewall and balancing infrastructure. These services, via their own programming APIs and SDKs, get engaged as necessary by our new _“Rananeeti”_ Data Platform which can deliver the _"Full Stack Resiliency"_, working with Application _in its entirety_, covering User Interface, Services and Database layers, as presented in the [Reference Architecture](RefArchDiag) diagram.
 
 ### What are we deploying?
 The main idea is to _make your application resilient to database failures_.
@@ -28,7 +28,7 @@ The video, detailed explanations and build guide follow.
 
 ### Architecture Diagram
 The fully deployed production grade system have structure, similar to this:
-<img src="assets/reference_architecture.png" alt="reference_architecture" width=800px>
+<a name="RefArchDiag"><img src="assets/reference_architecture.png" alt="reference_architecture" width=800px></a>
 
 ### Cost
 
