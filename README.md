@@ -21,13 +21,12 @@
 The main idea is to _make your application resilient to database failures_. \
 This is how it looks like for our Cafe Demo Application:
 <!-- ![name](link to image on GH)(link to your URL) -->
-![Cafe App Full Resiliency Example](assets/CafeAppFullResiliencyToDBFailuresDemo.jpeg)
-\
+<img src="assets/CafeAppFullResiliencyToDBFailuresDemo.jpeg" alt="Cafe App Full Resiliency Example" width=400px>
 The video, detailed explanations and build guide follow.
 
 ### Architecture Diagram
 The fully deployed production grade system have structure, similar to this:
-<img src="assets/reference_architecture.png" alt="reference_architecture">
+<img src="assets/reference_architecture.png" alt="reference_architecture" width=800px>
 
 ### Cost
 
