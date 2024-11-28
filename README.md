@@ -71,7 +71,7 @@ By leveraging cloud computing and AWS managed services, _“Rananeeti” can red
    This Git Repo code had already been cloned into "/home/ec2-user/md2a/rananeeti/olddba".
    Go there.
 - Now we need to deploy [this target stack](https://www.linkedin.com/pulse/building-resilient-applications-leveraging-modern-high-denys-dobrelya-pcpqf).
-<img src="assets/CafeAppStackMapping.png" alt="Cafe App Full Resiliency Stack Mapping" width=400px>
+<img src="assets/CafeAppStackMapping.png" alt="Cafe App Full Resiliency Stack Mapping" width=800px>
 This image "maps" old (_but not useless!_) "legacy" Enterprise world with newer lightweight approach.
 
 ### Supported Regions
