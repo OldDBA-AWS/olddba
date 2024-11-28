@@ -153,7 +153,7 @@ You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting u
 </pre>
 
 ## End of Deployment
-From your workstation open in Firefox your EC2 host address and start making "reservations", while ticking the checkbox to test Database failures.
+From your workstation open in Firefox your EC2 host address and start making "reservations", while ticking the checkbox to test Database failures. (You may consider to temporarily disable JS so you can go back and resubmit same data without changing anything.)
 
 Now it's a good time to play around with the cafe Demo website and to review its code. Note that "Rananeeti" Data Platform is the _only interface_ to all sort of data stores, relational and not. It also has its own connection pool with transaction processing logic smart enough to survive even full database outages. _That is the core concept of Maximum Data Availability Architecture_.
 
