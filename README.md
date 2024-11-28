@@ -78,7 +78,7 @@ I promise not to insult your intelligence with unnecessary dozen of screenshots 
    Go there.
 - Now we need to deploy [this target stack](https://www.linkedin.com/pulse/building-resilient-applications-leveraging-modern-high-denys-dobrelya-pcpqf).
 <img src="assets/CafeAppStackMapping.png" alt="Cafe App Full Resiliency Stack Mapping" width=800px>
-This image "maps" old (but not useless!) "legacy" Enterprise world with newer lightweight approach.
+This image "maps" old (but not useless!) "legacy" Enterprise world to newer lightweight approach.
 
 ### Deploy Web and App Infrastructure
 - As "ec2-user" install necessary Python modules:
