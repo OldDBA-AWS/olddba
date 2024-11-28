@@ -1,1 +1,2 @@
-Fri 22 Nov 2024 14:13:20 PST
+You may contact the author requesting Customer workshop or Architecture reviews. \
+These and other activities are subject to author's availability.
