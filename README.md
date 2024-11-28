@@ -14,7 +14,7 @@
 4. [End of Deployment](#end-of-deployment)
 5. [Cleanup](#cleanup)
 6. [Notices](#notices)
-7. [Authors](#authors)
+7. [Author](#author)
 
 ## Overview
 MD2A uses Aurora Global and Dynamo databases, Intelligent-Tiering S3 storage, global traffic management, application firewall and balancing infrastructure. These services, via their own programming APIs and SDKs, get engaged as necessary by our new _“Rananeeti”_ Data Platform which can deliver the _"Full Stack Resiliency"_, working with Application _in its entirety_, covering User Interface, Services and Database layers, as presented in the [Reference Architecture](#ArchDiag) diagram.
@@ -171,5 +171,5 @@ To clean up environment, AWS resources can be deleted using CloudFormation - you
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
 
 
-## Authors and Contributors
+## Author
 - [Denys Dobrelya](https://www.linkedin.com/in/denys-dobrelya/) - Principal Specialist Solutions Architect
