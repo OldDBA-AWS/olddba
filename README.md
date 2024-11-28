@@ -76,10 +76,13 @@ By leveraging cloud computing and AWS managed services, _“Rananeeti” can red
 This image "maps" old (but not useless!) "legacy" Enterprise world with newer lightweight approach.
 
 ### Deploy Web and App Infrastructure
-As "ec2-user" install necessary Python modules:
+- As "ec2-user" install necessary Python modules:
+<pre>
 - $ pip3 install boto3 oauthlib Flask Flask-SQLAlchemy Flask-OAuthlib Gunicorn psycopg2-binary
-Configure AWS CLI credentials.
+</pre>
+- Configure AWS CLI credentials.
 The recommended practice is to use [IAM Identity Center authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html).
+<pre>
         - $ cd ~
         - $ aws configure
         AWS Access Key ID [None]: Key-from-your-IAM-User
@@ -89,6 +92,7 @@ The recommended practice is to use [IAM Identity Center authentication](https://
         $ aws s3 ls
         2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
         2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
+</pre>
 
 
 
