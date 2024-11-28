@@ -136,7 +136,7 @@ You are now connected to database "cafedb" as user "cafeapp".
 - # systemctl enable httpd.service  # So it will restart after reboot.
 </pre>
 - From your workstation open in Firefox your EC2 host address.
-You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting up your own domain with Route53 and registering all necessary certificates to terminate TLS at ELB is beyond scope of this demo.  My Demo website https://cafe.olddba.people.aws.dev provides that functionality and Customer workshop may be organised to review full details.
+You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting up your own domain with Route53 and registering all necessary certificates to terminate TLS at ELB is beyond scope of this demo.  [My Demo website]( https://cafe.olddba.people.aws.dev) provides that functionality and Customer workshop may be organised to review full details.
 
 ### App Server
 - Continue as root
