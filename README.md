@@ -11,6 +11,7 @@
     - [DB Server](#db-server)
     - [Web Server](#web-server)
     - [App Server](#app-server)
+4. [End of Deployment](#end-of-deployment)
 7. [Cleanup](#cleanup)
 8. [Notices](#notices)
 9. [Authors](#authors)
@@ -54,6 +55,11 @@ but we were asked to restrict public access. If you want to try it - let me know
 
 ## Cafe Demo App deployment process
 By leveraging cloud computing and AWS managed services, _“Rananeeti” can reduce its carbon footprint_ significantly. AWS data centers are highly energy-efficient, utilizing advanced cooling technologies and renewable energy sources. AWS is committed to sustainable practices, such as reducing waste and optimizing resource usage.
+
+### Learn Enough Command Line to Be Dangerous
+> A software engineer spends months crafting a complex AI system. Finally, it's ready to deploy. The client, thrilled, asks, _"Can you show me a screenshot of it working?"_ The engineer sighs, _"Sure, here's a picture of my computer screen with the AI running in the background."_
+
+I promise not to insult your intelligence with unnecessary dozen of screenshots "how to add my IP to SecGroup". I hope we are on the same page here.
 
 ### Prepare the account
 -  Get new AWS Account
@@ -145,6 +151,13 @@ You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting u
 - # systemctl status rananeeti_tx_cache
    .... should see "Started rananeeti_tx_cache.service - RANANEETI Caching layer."
 </pre>
+
+## End of Deployment
+From your workstation open in Firefox your EC2 host address and start making "reservations", while ticking the checkbox to test Database failures.
+
+Now it's a good time to play around with the cafe Demo website and to review its code. Note that "Rananeeti" Data Platform is the _only interface_ to all sort of data stores, relational and not. It also has its own connection pool with transaction processing logic smart enough to survive even full database outages. _That is the core concept of Maximum Data Availability Architecture_.
+
+> Thank you for visiting! 
 
 ## Cleanup
 ### Delete Stack
