@@ -4,9 +4,9 @@
 ## Table of Content
 1. [Overview](#overview)
     - [Cost](#cost)
-2. [Prerequisites](#prerequisites)
-3. [Deployment Steps](#deployment-steps)
-    - [Deploy AWS](#deploy-aws)
+2. [Background](#background)
+3. [Cafe Demo App deployment process](#cafe-demo-app-deployment-process)
+    - [Prepare the account](#prepare-the-account)
     - [Deploy Salesforce Lightning Web Component](#deploy-salesforce-lightning-web-component)
 4. [Deployment Validation](#deployment-validation)
 5. [Running the Guidance](#running-the-guidance)
@@ -52,16 +52,27 @@ You can read about *Application-level Resiliency* on
 but we were asked to restrict public access. If you want to try it - let me know! 
 (_It looks and works exactly like in my video above._)
 
-### Operating System
-These deployment instructions are optimized to best work on a Mac or Linux environment. Deployment in Windows may require additional steps for setting up required libraries and CLI.
-Using a standard [AWS Cloud9](https://aws.amazon.com/pm/cloud9/) environment will have all the AWS requirements installed.
+## Cafe Demo App deployment process
+By leveraging cloud computing and AWS managed services, _“Rananeeti” can reduce its carbon footprint_ significantly. AWS data centers are highly energy-efficient, utilizing advanced cooling technologies and renewable energy sources. AWS is committed to sustainable practices, such as reducing waste and optimizing resource usage.
 
-### Software Requirements
-- Install Python 3.7 or later including pip and virtualenv
-- Install Node.js 14.15.0 or later
-- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- Install [AWS CDK Toolkit](https://docs.aws.amazon.com/cdk/v2/guide/cli.html)
-- Install [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm)
+### Prepare the account
+-  Get new AWS Account
+   So you don't mess up your things at work!
+-  Use N.Virginia "us-east-1" region
+   You may use any region you wish, but then you need to change the default value of CloudFormation parameter "HostAMI" 
+-  Create a KeyPair and name it "cafe-keypair" or provide your own name as CloudFormation parameter "CafeKey"
+-  Run the CloudFormation (CF from now) and deploy the stack "Cafe"
+   Use file "deployment/Cafe_template.yaml"
+   Aurora DB creation takes the longest time - be patient for about 15 min.
+   Once everything is ready read the "Output" section and add your own IP to the Security Group.
+- Connect to EC2 via ssh using your KeyPair.
+   This is your Application server and all Flask App code will be deployed here.
+   It is already configured to connect to empty Aurora PG database, just run "psql" from command line.
+   This Git Repo code had already been cloned into "/home/ec2-user/md2a/rananeeti/olddba".
+   Go there.
+- Now we need to deploy [this target stack](https://www.linkedin.com/pulse/building-resilient-applications-leveraging-modern-high-denys-dobrelya-pcpqf).
+<img src="assets/CafeAppStackMapping.png" alt="Cafe App Full Resiliency Stack Mapping" width=400px>
+This image "maps" old (_but not useless!_) "legacy" Enterprise world with newer lightweight approach.
 
 ### Supported Regions
 
