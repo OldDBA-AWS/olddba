@@ -173,4 +173,4 @@ To clean up environment, AWS resources can be deleted using CloudFormation - you
 
 ## Author
 - [Denys Dobrelya](https://www.linkedin.com/in/denys-dobrelya/) - Principal Specialist Solutions Architect
-<center><img src="assets/CafeAuthor.jpeg" alt="Cafe App Author" width="200px"></center>center>
+<img src="assets/CafeAuthor.jpeg" alt="Cafe App Author" width="400px">
