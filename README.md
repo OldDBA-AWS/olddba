@@ -9,7 +9,7 @@
 3. [Cafe Demo App deployment process](#cafe-demo-app-deployment-process)
     - [Prepare the account](#prepare-the-account)
     - [Deploy Web and App Infrastructure](#deploy-web-and-app-infrastructure)
-    - [DBServer][(#dbserver)
+    - [DBServer](#dbserver)
 4. [Deployment Validation](#deployment-validation)
 5. [Running the Guidance](#running-the-guidance)
     - [Supported Media Files](#supported-media-files)
@@ -97,7 +97,7 @@ $ aws s3 ls
 
 ### DBServer
 - As "ec2-user", connect to Aurora DB from the App Server.
-  <pre>
+<pre>
 - psql
   cafedb=> \c
 psql (15.8, server 15.4)
@@ -111,13 +111,14 @@ SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: 
 You are now connected to database "cafedb" as user "cafeapp".
   cafedb=>  create schema cafe authorization cafeapp;
   cafedb=>  create table cafe.ordersraw(
- ordrid SERIAL PRIMARY KEY,
- ordrdgst char(20) UNIQUE NOT NULL, -- blake2b hash digest value
- ordrname varchar(40) NOT NULL, -- who ordered
- ordrppl integer NOT NULL, -- how many people to attend
- ordrdttm timestamp(0) NOT NULL, -- Date / Time no TZ no Seconds
- ordrtxt varchar(200) -- Optional notes
-); </pre>
+             ordrid SERIAL PRIMARY KEY,
+             ordrdgst char(20) UNIQUE NOT NULL, -- blake2b hash digest value
+             ordrname varchar(40) NOT NULL, -- who ordered
+             ordrppl integer NOT NULL, -- how many people to attend
+             ordrdttm timestamp(0) NOT NULL, -- Date / Time no TZ no Seconds
+             ordrtxt varchar(200) -- Optional notes
+    );
+</pre>
 
 
 ## Cleanup
