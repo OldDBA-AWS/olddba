@@ -9,6 +9,7 @@
 3. [Cafe Demo App deployment process](#cafe-demo-app-deployment-process)
     - [Prepare the account](#prepare-the-account)
     - [Deploy Web and App Infrastructure](#deploy-web-and-app-infrastructure)
+    - [DBServer][(#dbserver)
 4. [Deployment Validation](#deployment-validation)
 5. [Running the Guidance](#running-the-guidance)
     - [Supported Media Files](#supported-media-files)
@@ -83,18 +84,40 @@ This image "maps" old (but not useless!) "legacy" Enterprise world with newer li
 - Configure AWS CLI credentials.
 The recommended practice is to use [IAM Identity Center authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html).
 <pre>
-        - $ cd ~
-        - $ aws configure
-        AWS Access Key ID [None]: Key-from-your-IAM-User
-        AWS Secret Access Key [None]: Secret-from-your-IAM-User
-        Default region name [None]: us-east-1
-        Default output format [None]: text
-        $ aws s3 ls
-        2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
-        2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
+- $ cd ~
+- $ aws configure
+AWS Access Key ID [None]: Key-from-your-IAM-User
+AWS Secret Access Key [None]: Secret-from-your-IAM-User
+Default region name [None]: us-east-1
+Default output format [None]: text
+$ aws s3 ls
+    2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
+    2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
 </pre>
 
-
+### DBServer
+- As "ec2-user", connect to Aurora DB from the App Server.
+  <pre>
+- psql
+  cafedb=> \c
+psql (15.8, server 15.4)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+You are now connected to database "cafedb" as user "postgres".
+  cafedb=>  create user cafeapp password 'Welcome1';
+  cafedb=>  grant all on database cafedb to cafeapp; 
+  cafedb=> \c cafedb cafeapp
+psql (15.8, server 15.4)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+You are now connected to database "cafedb" as user "cafeapp".
+  cafedb=>  create schema cafe authorization cafeapp;
+  cafedb=>  create table cafe.ordersraw(
+ ordrid SERIAL PRIMARY KEY,
+ ordrdgst char(20) UNIQUE NOT NULL, -- blake2b hash digest value
+ ordrname varchar(40) NOT NULL, -- who ordered
+ ordrppl integer NOT NULL, -- how many people to attend
+ ordrdttm timestamp(0) NOT NULL, -- Date / Time no TZ no Seconds
+ ordrtxt varchar(200) -- Optional notes
+); </pre>
 
 
 ## Cleanup
