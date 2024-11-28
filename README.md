@@ -9,11 +9,9 @@
 3. [Cafe Demo App deployment process](#cafe-demo-app-deployment-process)
     - [Prepare the account](#prepare-the-account)
     - [Deploy Web and App Infrastructure](#deploy-web-and-app-infrastructure)
-    - [DBServer](#dbserver)
-4. [Deployment Validation](#deployment-validation)
-5. [Running the Guidance](#running-the-guidance)
-    - [Supported Media Files](#supported-media-files)
-6. [Next Steps](#next-steps)
+    - [DB Server](#db-server)
+    - [Web Server](#web-server)
+   
 7. [Cleanup](#cleanup)
 8. [Notices](#notices)
 9. [Authors](#authors)
@@ -95,7 +93,7 @@ $ aws s3 ls
     2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
 </pre>
 
-### DBServer
+### DB Server
 - As "ec2-user", connect to Aurora DB from the App Server.
 <pre>
 - psql
@@ -119,6 +117,20 @@ You are now connected to database "cafedb" as user "cafeapp".
              ordrtxt varchar(200) -- Optional notes
     );
 </pre>
+
+### Web Server
+- Become root on your EC2 App Server.
+<pre>
+- # cd /
+- # tar xzvpf /home/ec2-user/md2a/rananeeti/olddba/assets/v1.1.tgz # Please preserve permissions with "p"!
+- # cd ~
+- # apachectl start
+- # apachectl status
+   .... should see workers
+- # systemctl enable httpd.service  # So it will restart after reboot.
+</pre>
+- From your workstation open in Firefox your EC2 host address.
+You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting up your own domain with Route53 and registering all necessary certificates to terminate TLS at ELB is beyond scope of this demo.  My Demo website https://cafe.olddba.people.aws.dev provides that functionality and Customer workshop may be organised to review full details.
 
 
 ## Cleanup
