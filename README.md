@@ -12,9 +12,9 @@
     - [Web Server](#web-server)
     - [App Server](#app-server)
 4. [End of Deployment](#end-of-deployment)
-7. [Cleanup](#cleanup)
-8. [Notices](#notices)
-9. [Authors](#authors)
+5. [Cleanup](#cleanup)
+6. [Notices](#notices)
+7. [Authors](#authors)
 
 ## Overview
 MD2A uses Aurora Global and Dynamo databases, Intelligent-Tiering S3 storage, global traffic management, application firewall and balancing infrastructure. These services, via their own programming APIs and SDKs, get engaged as necessary by our new _“Rananeeti”_ Data Platform which can deliver the _"Full Stack Resiliency"_, working with Application _in its entirety_, covering User Interface, Services and Database layers, as presented in the [Reference Architecture](#ArchDiag) diagram.
@@ -161,34 +161,12 @@ Now it's a good time to play around with the cafe Demo website and to review its
 
 ## Cleanup
 ### Delete Stack
-To clean up environment, AWS resources can be deleted using the CDK or CloudFormation. With CDK, run the `cdk destroy` command to delete the resources. With CloudFormation, you can go to the CloudFormation stack and click `Delete`
-### Manually delete retained resources
-After deleting the stack, there will be some resources that will be retained. You will need to manually delete these resources.
-- Amazon S3 buckets will be retained:
-  - `InputBucket`
-  - `OutputBucket`
-  - `TranscriptionBucket`
-  - `LoggingBucket`
-- Amazon Elastic Container Registry (ECR) will be retained:
-  - `json2word_repo`
-  - `exif_tool_repo`
-  - `encoder_repo`
-- In the EC2 Image Builder service, 3 container recipes and 1 infrastructure configurations will be retained.
-  - Container recipes:
-    - `json2word_recipe`
-    - `exif_tool_recipe`
-    - `encoder_recipe`
-  - Infrastructure configurations:
-    - `InfrastructureConfigurationContainerStack`
-
-
+To clean up environment, AWS resources can be deleted using the CDK or CloudFormation. With CDK, run the `cdk destroy` command to delete the resources. With CloudFormation, you can go to the CloudFormation stack and click `Delete`. \
+This process shall fully cleanup all deployed and provisioned services. It's time to destroy the account too - remember, we created it only for the purpose of running this demo? Please follow this approach when you experiment with AWS Cloud Services - it's the best way of avoiding unnecessary billing suprises.
 
 ## Notices
-
-**External Library Notice:**
-*An external FFmpeg binary will be pulled from [https://www.johnvansickle.com](https://www.johnvansickle.com) for the [Encoder Dockerfile](deployment/media-management-solution-cdk/media_management_solutions_library/container_assets/EncoderRecipe/) container. It is the responsibility of the customer to abide by the licensing of FFmpeg.*
-*An external exif binary will be pulled from [exiftool.org](https://exiftool.org/)
-[https://github.com/exiftool/exiftool](https://github.com/exiftool/exiftool) for the [ExifTool Dockerfile](deployment/media-management-solution-cdk/media_management_solutions_library/container_assets/ExifToolRecipe) container. It is the responsibility of the customer to abide by the licensing of [ExifTool](https://github.com/exiftool/exiftool).*
+**Copyright Notice:**
+*Please note that the software components of the software stack deployed for this demo, including Linux, Apache HTTP Server, Gunicorn and Python libraries, may be licensed under the GNU General Public License version 3 (GPLv3) and may be not suitable for Commercial use. Please do your own legal research. For specific licensing inquiries or commercial use, please consult the official GPLv3 license text and consider contacting the respective copyright holders. *
 
 **Legal Disclaimer:**
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
@@ -196,12 +174,4 @@ After deleting the stack, there will be some resources that will be retained. Yo
 
 ## Authors and Contributors
 
-- John Meyer - Salesforce Solutions Engineer (Retired)
-- John Sautter - Salesforce Senior Director of Solutions Engineering
-- Kyle Hart - AWS Principal Solutions Architect
-- Christian Ramirez - AWS Partner Solutions Architect
-- Jared Wiener - AWS Senior Solutions Architect
-- Kishore Dhamodaran - AWS Senior Solutions Architect
-- Robert Sosinski - AWS Principal Solutions Architect
-- Deepika Suresh - AWS Solutions Architect Technology Solutions
-- Jason Wreath - AWS Head of Solutions for AIML & Data
+- [Denys Dobrelya](https://www.linkedin.com/in/denys-dobrelya/) - Principal Specialist Solutions Architect
