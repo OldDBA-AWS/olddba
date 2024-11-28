@@ -1,4 +1,3 @@
-<!-- https://www.markdownguide.org/basic-syntax/ -->
 # Guidance for Maximum Data Availability Architecture on AWS
 ## (aka "MD2A" and "Rananeeti")
 
@@ -11,7 +10,7 @@
     - [Deploy Web and App Infrastructure](#deploy-web-and-app-infrastructure)
     - [DB Server](#db-server)
     - [Web Server](#web-server)
-   
+    - [App Server](#app-server)
 7. [Cleanup](#cleanup)
 8. [Notices](#notices)
 9. [Authors](#authors)
@@ -23,6 +22,7 @@ MD2A uses Aurora Global and Dynamo databases, Intelligent-Tiering S3 storage, gl
 The main idea is to _make your application resilient to database failures_.
 This is how it looks like for our Cafe Demo Application:
 <!-- ![name](link to image on GH)(link to your URL) -->
+<!-- https://www.markdownguide.org/basic-syntax/ -->
 <img src="assets/CafeAppFullResiliencyToDBFailuresDemo.jpeg" alt="Cafe App Full Resiliency Example" width=400px>
 The video, detailed explanations and build guide follow.
 
@@ -132,6 +132,19 @@ You are now connected to database "cafedb" as user "cafeapp".
 - From your workstation open in Firefox your EC2 host address.
 You should see "home Cafe" landing webpage, delivered over plain HTTP. Setting up your own domain with Route53 and registering all necessary certificates to terminate TLS at ELB is beyond scope of this demo.  My Demo website https://cafe.olddba.people.aws.dev provides that functionality and Customer workshop may be organised to review full details.
 
+### App Server
+- Continue as root
+<pre>
+- # pip3 install gunicorn
+- # systemctl enable gunicorn
+- # systemctl start gunicorn
+- # systemctl status gunicorn
+   .... should see workers
+- # systemctl enable rananeeti_tx_cache
+- # systemctl start rananeeti_tx_cache
+- # systemctl status rananeeti_tx_cache
+   .... should see "Started rananeeti_tx_cache.service - RANANEETI Caching layer."
+</pre>
 
 ## Cleanup
 ### Delete Stack
