@@ -1,3 +1,4 @@
+<!-- https://www.markdownguide.org/basic-syntax/ -->
 # Guidance for Maximum Data Availability Architecture on AWS
 ## (aka "MD2A" and "Rananeeti")
 
@@ -7,7 +8,7 @@
 2. [Background](#background)
 3. [Cafe Demo App deployment process](#cafe-demo-app-deployment-process)
     - [Prepare the account](#prepare-the-account)
-    - [Deploy Salesforce Lightning Web Component](#deploy-salesforce-lightning-web-component)
+    - [Deploy Web and App Infrastructure](#deploy-web-and-app-infrastructure)
 4. [Deployment Validation](#deployment-validation)
 5. [Running the Guidance](#running-the-guidance)
     - [Supported Media Files](#supported-media-files)
@@ -72,95 +73,25 @@ By leveraging cloud computing and AWS managed services, _“Rananeeti” can red
    Go there.
 - Now we need to deploy [this target stack](https://www.linkedin.com/pulse/building-resilient-applications-leveraging-modern-high-denys-dobrelya-pcpqf).
 <img src="assets/CafeAppStackMapping.png" alt="Cafe App Full Resiliency Stack Mapping" width=800px>
-This image "maps" old (_but not useless!_) "legacy" Enterprise world with newer lightweight approach.
+This image "maps" old (but not useless!) "legacy" Enterprise world with newer lightweight approach.
 
-### Supported Regions
-
-This Guidance is built for regions that support Amazon Kendra. Supported regions are subject to change, so please review [Amazon Kendra endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/kendra.html) for the most up-to-date list. Attempting to deploy the CDK stack in a region where Amazon Kendra in unavailable will fail.
-
-## Deployment Steps
-This project consists of two components, which have to be deployed separately.  One to Salesforce, and one to AWS.
-
-**BEFORE DEPLOYING**
-This requires a certificate that can be used in both Salesforce and AWS.  For _DEV_ purposes, a self-signed cert is the easiest, but must be initiated on the Salesforce side.
-
-### Generate Certificates
-1. **Generate Certificates**: In the target Salesforce org, go to Setup > Certificate and Key Management > Create Self-Signed Certificate.
-    * Here are instructions from Salesforce for creating a self-signed certificate: [Generate a Self-Signed Certificate](https://help.salesforce.com/s/articleView?id=sf.security_keys_creating.htm&type=5).
-    * **Important:** Name that certificate `awsJWTCert`.  The component will only look for a certificate with that name.
-2. Create and download the certificate.
-3. There are 2 options for providing the public certificate to your AWS infrastructure:
-   1. Overwrite [deployment/media-management-solution-cdk/cert.crt](deployment/media-management-solution-cdk/cert.crt) with the new certificate you just downloaded.
-   2. In [app.py](deployment/media-management-solution-cdk/app.py), the path to the public certificate file is stored in the `pub_cert_path` variable. If you want to use a different file or location for the public certificate, you need to modify the value of the `pub_cert_path` variable with the path to your cert for the CDK to read in the values.
-
-### Deploy AWS
-1. The CDK must first be deployed on AWS to create the necessary resources needed for the Salesforce Lightning Web Component (LWC).
-2. Follow the instruction on [Media Management CDK](deployment/media-management-solution-cdk/README.md) to configure and deploy the CDK stack in your AWS Account.
-3. The outputs that will be used in configuring the Salesforce LWC can be found in the CloudFormation outputs tab, or in the CDK CLI after a successful deployment:
-
-<img src="assets/images/cloudformation-output.png" alt="cf-output" width="700" height="auto">
-
-<img src="assets/images/cdk-output.png" alt="cdk-output" width="700" height="auto">
-
-### Deploy Salesforce Lightning Web Component
-1. Have the Salesforce CLI installed. Here are instruction to install: [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm)
-2. Change directories to the `deployment/sfdc` directory
-3. If this is your first time using the Salesforce CLI, you must first authorize your org with the CLI. Here is the [Authorization](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth.htm) guide. Use the option that best meets your needs. The option that meets most user's needs is [Authorize an Org Using a Browser](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_web_flow.htm)
-
-4. Run `sf project deploy start`.
-   * Depending on your authorization and configuration, you may need to specify the directory and target org with additional tags. Here is an example of how this might look like: `sf project deploy start  --source-dir deployment/sfdc --target-org <org-alias>`
-   * Here is a [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_project_commands_unified.htm#cli_reference_project_deploy_start_unified)
-
-## Deployment Validation
-
-Now that the Salesforce LWC and AWS CDK are deployed, you will need to add the LWC to your Case Page Layout, and insert the values of the S3 buckets, API Gateway, and Kendra ID. We are going to use the [Lightning App Builder](https://help.salesforce.com/s/articleView?id=sf.lightning_app_builder_overview.htm&type=5) to configure the Case Page and add the custom LWC to Cases.
-1. Follow this guide,[Create and Configure Lightning Experience Record Pages](https://help.salesforce.com/s/articleView?id=sf.lightning_app_builder_customize_lex_pages.htm&type=5), and use your preferred method of creating a Lightning App Builder for the Cases page.
-2. In the Lightning App Builder page for the Cases, add the `AWS S3 Media Files` component to pages as desired.
-3. Use the outputs from the CDK Deployment for the required inputs of the `AWS S3 Media Files` component:
-<img src="assets/images/lightning-app-builder.png" alt="lightning-app-builder" width="auto" height="auto">
-
-4. Open up a sample case, and hit Refresh on the *AWS Files* Component. If you do not get any errors, the LWC was configured correctly.
-5. Next step is to upload media files.
-
-### Common Misconfigurations
-- The most common reason why you would get an error is because of the self-signed certificate. Here are some things to check:
-  - Review the [generate certificates](#generate-certificates) section and make sure that you have followed all the steps.
-    - Make sure that the certificate is named `awsJWTCert`
-
-## Running the Guidance
-
-When running this solution, each case will generate a new prefix in the input S3 Bucket to keep inputs seperated from each other.
-
-In this example, you can see that a JPG image and MOV video file were successfully uploaded.
-
-<img src="assets/images/case_dashboard.png" alt="case_dashboard" width="700" height="auto">
-
-The processing in AWS runs asynchronously, so the results may take a few seconds to load. When looking at the outputs of an Image File, you will see the image metadata, image location, and results of Amazon Rekognition.
-
-<img src="assets/images/image_output.png" alt="image_output" width="700" height="auto">
-
-When looking at the outputs of a Video File, you will see the video preview, and the transcription with timestamps. There is also an option to download the transcription.
-
-<img src="assets/images/video_output.png" alt="video_output" width="700" height="auto">
-
-Here is a sample output of the Document generated.
-
-<img src="assets/images/transcription_docx.png" alt="transcription_docx" width="600" height="auto">
-
-### Supported Media Files
-
-Because of the format compatibility of Amazon Transcribe and Amazon Rekognition, only the following file formats are supported. Any formats not present here, will still be stored in S3, but will not be processed by its respective pipeline.
-- Image File Formats: "jpg", "jpeg", "png"
-  - Here are the [Image specifications](https://docs.aws.amazon.com/rekognition/latest/dg/images-information.html) for Amazon Rekognition
-- Video File Formats: "mpeg4", "mp4", "mov", "avi"
-  - Here are the [Video specifications](https://docs.aws.amazon.com/rekognition/latest/dg/video.html) for Amazon Rekognition
-- Audio File Formats: "amr", "flac", "m4a", "mp3", "mp4", "ogg", "webm", "wav"
-  - Here are the [Data input and output](https://docs.aws.amazon.com/transcribe/latest/dg/how-input.html) for Amazon Transcribe
+### Deploy Web and App Infrastructure
+As "ec2-user" install necessary Python modules:
+- $ pip3 install boto3 oauthlib Flask Flask-SQLAlchemy Flask-OAuthlib Gunicorn psycopg2-binary
+Configure AWS CLI credentials.
+The recommended practice is to use [IAM Identity Center authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html).
+        - $ cd ~
+        - $ aws configure
+        AWS Access Key ID [None]: Key-from-your-IAM-User
+        AWS Secret Access Key [None]: Secret-from-your-IAM-User
+        Default region name [None]: us-east-1
+        Default output format [None]: text
+        $ aws s3 ls
+        2024-11-26 05:14:32 cf-templates-1j84y89c4zr7w-ap-southeast-2
+        2024-11-26 06:42:48 cf-templates-1j84y89c4zr7w-us-east-1
 
 
-## Next Steps
 
-This Guidance establishes the basis for securely storing and processing media files using AI/ML by connecting AWS and Salesforce. Customers can improve this by incorporating additional data processing or personalized AI/ML models, resulting in a more tailored solution for their specific needs. Customers have the option to include extra audio transcript processing for summary generation via [Amazon Bedrock](https://aws.amazon.com/bedrock/) for GenAI.
 
 ## Cleanup
 ### Delete Stack
