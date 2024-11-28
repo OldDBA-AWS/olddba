@@ -166,12 +166,11 @@ This process shall fully cleanup all deployed and provisioned services. It's tim
 
 ## Notices
 **Copyright Notice:**
-*Please note that the software components of the software stack deployed for this demo, including Linux, Apache HTTP Server, Gunicorn and Python libraries, may be licensed under the GNU General Public License version 3 (GPLv3) and may be not suitable for Commercial use. Please do your own legal research. For specific licensing inquiries or commercial use, please consult the official GPLv3 license text and consider contacting the respective copyright holders. *
+*Please note that the software components of the software stack deployed for this demo, including Linux, Apache HTTP Server, Gunicorn and Python libraries, may be licensed under the GNU General Public License version 3 (GPLv3) and may be not suitable for Commercial use. Please do your own legal research. For specific licensing inquiries or commercial use, please consult the official GPLv3 license text and consider contacting the respective copyright holders.*
 
 **Legal Disclaimer:**
 *Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
 
 
 ## Authors and Contributors
-
 - [Denys Dobrelya](https://www.linkedin.com/in/denys-dobrelya/) - Principal Specialist Solutions Architect
